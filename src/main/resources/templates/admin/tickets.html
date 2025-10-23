@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor All Tickets</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/images/logo.png}" type="image/x-icon">
+</head>
+<body>
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img th:src="@{/images/logo.png}" alt="ByteX Logo" class="sidebar-logo">
+            <h4 class="mt-2">ByteX</h4>
+        </div>
+        <ul class="nav flex-column sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/dashboard}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/users}"><i class="fas fa-users-cog me-2"></i>User Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" th:href="@{/admin/tickets}"><i class="fas fa-ticket-alt me-2"></i>Monitor Tickets</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/logs}"><i class="fas fa-clipboard-list me-2"></i>Activity Logs</a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <a th:href="@{/profile}" class="nav-link"><i class="fas fa-user-circle me-2"></i>Profile</a>
+            <a th:href="@{/logout}" class="nav-link"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">All System Tickets</h2>
+            </div>
+
+            <!-- Tickets Table -->
+            <div class="card bg-dark-2 shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Subject</th>
+                                    <th>Customer</th>
+                                    <th>Assigned Staff</th>
+                                    <th>Assigned Technician</th>
+                                    <th>Status</th>
+                                    <th>Stage</th>
+                                    <th>Last Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:if="${#lists.isEmpty(tickets)}">
+                                    <td colspan="9" class="text-center">No tickets found in the system.</td>
+                                </tr>
+                                <tr th:each="ticket : ${tickets}">
+                                    <td th:text="${ticket.ticketId}"></td>
+                                    <td th:text="${ticket.subject}"></td>
+                                    <td th:text="${ticket.customer.fullName}"></td>
+                                    <td th:text="${ticket.staff != null ? ticket.staff.fullName : 'Unassigned'}"></td>
+                                    <td th:text="${ticket.technician != null ? ticket.technician.fullName : 'N/A'}"></td>
+                                    <td>
+                                        <span class="badge" th:classappend="${#strings.toString(ticket.status) == 'OPEN' ? 'bg-success' : (#strings.toString(ticket.status) == 'CLOSED' ? 'bg-secondary' : 'bg-warning')}"
+                                              th:text="${ticket.status}"></span>
+                                    </td>
+                                    <td th:text="${ticket.stage}"></td>
+                                    <td th:text="${#temporals.format(ticket.updatedAt != null ? ticket.updatedAt : ticket.createdAt, 'dd-MMM-yyyy HH:mm')}"></td>
+                                    <td>
+                                        <form th:action="@{/admin/tickets/{id}/reassign(id=${ticket.ticketId})}" method="post" class="d-flex">
+                                            <select name="userId" class="form-select form-select-sm me-2">
+                                                <option value="">Reassign to...</option>
+                                                <option th:each="user : ${assignableUsers}"
+                                                        th:value="${user.userId}"
+                                                        th:text="${user.fullName} + ' (' + user.role.roleName + ')'"
+                                                        th:selected="${(ticket.staff != null and ticket.staff.userId == user.userId) or (ticket.technician != null and ticket.technician.userId == user.userId)}"></option>
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-primary">Assign</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/theme-switcher.js}"></script>
+</body>
+</html>

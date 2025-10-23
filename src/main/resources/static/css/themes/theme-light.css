@@ -1,0 +1,331 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* --- Variable Definitions --- */
+:root {
+    --main-bg-color: #f8f9fa;
+    --primary-element-bg: #ffffff;
+    --main-text-color: #333333; /* Changed to dark for light theme */
+    --secondary-text-color: #555555;
+    --muted-text-color: #777777; /* For muted text on light background */
+    --primary-accent-color: #7b2cbf; /* Purple accent */
+    --secondary-accent-color: #9d4edd; /* Lighter purple */
+    --input-border-color: #e0e0e0;
+    --input-focus-border-color: #7b2cbf; /* Purple accent */
+    --sidebar-bg-color: #ffffff;
+    --sidebar-text-color: #555555; /* Dark text for light sidebar */
+    --sidebar-active-color: #7b2cbf; /* Purple accent */
+    --link-color: #9d4edd; /* Light purple */
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --dark-2: #f0f0f7; /* Light background */
+    --dark-3: #e8e8f0; /* Slightly darker light background */
+}
+
+/* --- General Body Styling & Background Animation --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--main-bg-color);
+    color: var(--main-text-color);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.login-container, .profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(45deg, #f0f0f7, #f8f9fa, #f0f0f7);
+}
+
+/* --- Login & Profile Styling --- */
+.login-form, .profile-form {
+    background-color: var(--primary-element-bg);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--input-border-color);
+    width: 100%;
+    max-width: 450px;
+}
+
+.logo-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+h3 {
+    color: var(--main-text-color);
+    font-weight: 600;
+}
+
+/* --- Form Control Styling --- */
+.form-control, .form-select {
+    background-color: var(--primary-element-bg);
+    color: var(--main-text-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 8px;
+    height: 48px;
+    padding: 0 15px;
+}
+.form-control:focus, .form-select:focus {
+    background-color: var(--primary-element-bg);
+    color: var(--main-text-color);
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 0.2rem rgba(123, 44, 191, 0.15); /* Light purple shadow */
+}
+.form-control::placeholder {
+    color: #999999;
+}
+
+/* --- Button Styling --- */
+.btn {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-primary {
+    background-color: var(--primary-accent-color);
+    border-color: var(--primary-accent-color);
+    color: #ffffff;
+}
+.btn-primary:hover {
+    background-color: #5a189a; /* Darker purple on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(123, 44, 191, 0.3);
+}
+.btn-danger {
+    background-color: #ff4c61;
+    border-color: #ff4c61;
+    color: #ffffff;
+}
+.btn-danger:hover {
+    background-color: #d93a4e;
+}
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* --- Dashboard Layout --- */
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* --- Sidebar Styling --- */
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    border-right: 1px solid var(--input-border-color);
+}
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.sidebar-logo {
+    width: 70px;
+    height: 70px;
+}
+.sidebar-nav {
+    flex-grow: 1;
+}
+.nav-link {
+    color: var(--sidebar-text-color);
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+}
+.nav-link:hover {
+    background-color: var(--dark-2);
+    color: var(--primary-accent-color);
+}
+.nav-link.active {
+    background-color: var(--sidebar-active-color);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 2px 10px rgba(123, 44, 191, 0.2);
+}
+.sidebar-footer {
+    border-top: 1px solid var(--input-border-color);
+    padding-top: 15px;
+}
+
+/* --- Main Content Area --- */
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: var(--main-bg-color);
+}
+
+/* --- Card & Table Styling --- */
+.card {
+    border: none;
+    border-radius: 12px;
+    background-color: var(--primary-element-bg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--main-text-color);
+    box-shadow: var(--box-shadow);
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.bg-dark-2 {
+    background-color: var(--dark-2) !important;
+}
+.bg-dark-3 {
+    background-color: var(--dark-3) !important;
+}
+.card-header {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid var(--input-border-color);
+}
+.card-title, .card-header h4, .card-header h5 {
+    color: var(--main-text-color);
+}
+.card-text {
+    color: var(--secondary-text-color);
+}
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+    color: var(--main-text-color);
+}
+.table thead th {
+    background-color: #f0f0f7;
+    border: none;
+    color: var(--main-text-color);
+    font-weight: 600;
+}
+.table-hover tbody tr:hover {
+    background-color: #f5f5fa !important;
+}
+.table-dark {
+    --bs-table-color: var(--main-text-color);
+    background-color: #f8f9fa !important;
+    color: var(--main-text-color) !important;
+}
+.table-dark td, .table-dark th, .table-dark tr {
+    border-color: var(--input-border-color) !important;
+    background-color: var(--primary-element-bg) !important;
+    color: var(--main-text-color) !important;
+}
+
+/* --- List Group Styling --- */
+.list-group-item {
+    background-color: var(--primary-element-bg);
+    border-color: var(--input-border-color);
+    color: var(--main-text-color);
+}
+.list-group-item.bg-transparent {
+    background-color: transparent !important;
+    color: var(--main-text-color) !important;
+}
+
+/* --- Text Color Utilities --- */
+.text-muted {
+    color: var(--muted-text-color) !important;
+}
+.text-white {
+    color: var(--primary-accent-color) !important; /* Changed to purple */
+}
+.text-info {
+    color: var(--secondary-accent-color) !important;
+}
+
+/* --- Badge Styling --- */
+.badge {
+    padding: 6px 10px;
+    font-weight: 500;
+    color: #ffffff;
+}
+.bg-success {
+    background-color: #7b2cbf !important; /* Changed to purple */
+}
+.bg-warning {
+    background-color: #e0aaff !important; /* Light purple */
+    color: #333333 !important;
+}
+.bg-secondary {
+    background-color: #6c757d !important;
+}
+.bg-info {
+    background-color: #9d4edd !important;
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f0f0f7;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary-accent-color);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #5a189a;
+}
+
+/* --- Alerts --- */
+.alert {
+    border-radius: 8px;
+    border-left-width: 5px;
+}
+.alert-success {
+    color: #333333;
+    border-left-color: var(--primary-accent-color);
+    background-color: rgba(123, 44, 191, 0.1);
+}
+.alert-danger {
+    color: #333333;
+    border-left-color: #ff4c61;
+    background-color: rgba(255, 76, 97, 0.1);
+}
+.alert-warning {
+    color: #333333;
+    border-left-color: #e0aaff;
+    background-color: rgba(224, 170, 255, 0.1);
+}
+
+/* --- Conversation History --- */
+.conversation-history .card {
+    background-color: var(--dark-3) !important;
+}
+.conversation-history .card-body {
+    color: var(--main-text-color);
+}
+
+/* --- Form Text --- */
+.form-text {
+    color: var(--muted-text-color) !important;
+}
+
+/* --- Input Group --- */
+.input-group-text {
+    background-color: #f5f5fa;
+    border-color: var(--input-border-color);
+    color: var(--secondary-text-color);
+}
+
+/* --- Diagnosis and Notes --- */
+.text-info {
+    color: var(--secondary-accent-color) !important;
+}

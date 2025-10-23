@@ -1,0 +1,11 @@
+:root {
+    --primary-accent-color: #0d6efd;
+    --input-focus-border-color: #0d6efd;
+    --sidebar-active-color: #0d6efd;
+    --link-color: #0d6efd;
+}
+.btn-primary:hover {
+    background-color: rgba(10, 78, 184, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(8, 52, 129, 0.81);
+}

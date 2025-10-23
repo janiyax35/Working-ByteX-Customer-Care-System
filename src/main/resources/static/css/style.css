@@ -1,0 +1,318 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* --- Variable Definitions --- */
+:root {
+    --main-bg-color: #161625;
+    --primary-element-bg: #1e1e2f;
+    --main-text-color: #ffffff; /* Changed from #e0e0e0 to pure white for better visibility */
+    --secondary-text-color: #e0e0e0;
+    --muted-text-color: #b0b0b0; /* Added for better visibility of muted text */
+    --primary-accent-color: #009d63;
+    --secondary-accent-color: #ff4c61;
+    --input-border-color: #404258;
+    --input-focus-border-color: #009d63;
+    --sidebar-bg-color: #1a1a2e;
+    --sidebar-text-color: #c0c5cc; /* Brightened from #adb5bd for better visibility */
+    --sidebar-active-color: #009d63;
+    --link-color: #00c6a7;
+    --box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+    --dark-2: #27293d;
+    --dark-3: #1e1e30; /* Added for more contrast options */
+}
+
+/* --- General Body Styling & Background Animation --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--main-bg-color);
+    color: var(--main-text-color);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.login-container, .profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(45deg, #1a1a2e, #161625, #1a1a2e);
+}
+
+/* --- Login & Profile Styling --- */
+.login-form, .profile-form {
+    background-color: var(--primary-element-bg);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--input-border-color);
+    width: 100%;
+    max-width: 450px;
+}
+
+.logo-img {
+    width: 80px;
+    height: 80px;
+    /*border-radius: 50%;*/
+    object-fit: cover;
+    /*border: 3px solid var(--primary-accent-color);*/
+    /*box-shadow: 0 0 15px rgba(0, 157, 99, 0.5);*/
+}
+
+h3 {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* --- Form Control Styling --- */
+.form-control, .form-select {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 8px;
+    height: 48px;
+    padding: 0 15px;
+}
+.form-control:focus, .form-select:focus {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    border-color: var(--input-focus-border-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 157, 99, 0.25);
+}
+.form-control::placeholder {
+    color: var(--sidebar-text-color);
+}
+
+/* --- Button Styling --- */
+.btn {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-primary {
+    background-color: var(--primary-accent-color);
+    border-color: var(--primary-accent-color);
+    color: #ffffff; /* Ensuring button text is white */
+}
+.btn-primary:hover {
+    background-color: #007a4e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 157, 99, 0.3);
+}
+.btn-danger {
+    background-color: var(--secondary-accent-color);
+    border-color: var(--secondary-accent-color);
+    color: #ffffff; /* Ensuring button text is white */
+}
+.btn-danger:hover {
+    background-color: #d93a4e;
+}
+
+/* --- Dashboard Layout --- */
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* --- Sidebar Styling --- */
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg-color);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+}
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.sidebar-logo {
+    width: 70px;
+    height: 70px;
+    /*border-radius: 50%;*/
+    /*border: 2px solid var(--primary-accent-color);*/
+}
+.sidebar-nav {
+    flex-grow: 1;
+}
+.nav-link {
+    color: var(--sidebar-text-color);
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+}
+.nav-link:hover {
+    background-color: var(--primary-element-bg);
+    color: #fff;
+}
+.nav-link.active {
+    background-color: var(--sidebar-active-color);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 2px 10px rgba(0, 157, 99, 0.4);
+}
+.sidebar-footer {
+    border-top: 1px solid var(--input-border-color);
+    padding-top: 15px;
+}
+
+/* --- Main Content Area --- */
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: var(--main-bg-color);
+}
+
+/* --- Card & Table Styling --- */
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--main-text-color); /* Ensuring text in cards is visible */
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.bg-dark-2 {
+    background-color: var(--dark-2);
+}
+.bg-dark-3 {
+    background-color: var(--dark-3);
+}
+.card-header {
+    background-color: rgba(0, 0, 0, 0.2); /* Darker header for better contrast */
+    border-bottom: 1px solid var(--input-border-color);
+}
+.card-title, .card-header h4, .card-header h5 {
+    color: #ffffff; /* Ensuring card titles are white */
+}
+.card-text {
+    color: var(--secondary-text-color); /* Ensuring card text has good visibility */
+}
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+    color: var(--main-text-color); /* Ensuring table text is visible */
+}
+.table thead th {
+    background-color: var(--primary-element-bg);
+    border: none;
+    color: #fff;
+}
+.table-hover tbody tr:hover {
+    background-color: #2c2e43 !important;
+    color: #fff;
+}
+.table-dark {
+    --bs-table-color: #fff; /* Ensuring Bootstrap table text is white */
+    color: #fff !important; /* Forcing white color for table text */
+}
+
+/* --- List Group Styling --- */
+.list-group-item {
+    background-color: transparent;
+    border-color: var(--input-border-color);
+    color: var(--main-text-color); /* Ensuring list group text is visible */
+}
+.list-group-item.bg-transparent {
+    color: var(--main-text-color) !important; /* Forcing visible text color in transparent list items */
+}
+
+/* --- Text Color Utilities --- */
+.text-muted {
+    color: var(--muted-text-color) !important; /* Brighter muted text */
+}
+.text-white {
+    color: #ffffff !important; /* Pure white text */
+}
+.text-info {
+    color: #5ac8fa !important; /* Brighter info text */
+}
+
+/* --- Badge Styling --- */
+.badge {
+    padding: 6px 10px;
+    font-weight: 500;
+    color: #ffffff; /* Ensuring badge text is white */
+}
+.bg-success {
+    background-color: #28a745 !important;
+}
+.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important; /* Dark text for better contrast on yellow */
+}
+.bg-secondary {
+    background-color: #6c757d !important;
+}
+.bg-info {
+    background-color: #17a2b8 !important;
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--main-bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary-accent-color);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #007a4e;
+}
+
+/* --- Alerts --- */
+.alert {
+    border-radius: 8px;
+    border-left-width: 5px;
+    color: #ffffff; /* Ensuring alert text is visible */
+}
+.alert-success {
+    border-left-color: var(--primary-accent-color);
+    background-color: rgba(0, 157, 99, 0.2);
+}
+.alert-danger {
+    border-left-color: var(--secondary-accent-color);
+    background-color: rgba(255, 76, 97, 0.2);
+}
+.alert-warning {
+    border-left-color: #ffc107;
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #f8f9fa; /* Lighter text for warning alerts */
+}
+
+/* --- Conversation History --- */
+.conversation-history .card {
+    background-color: var(--dark-3) !important;
+}
+.conversation-history .card-body {
+    color: var(--main-text-color);
+}
+
+/* --- Form Text --- */
+.form-text {
+    color: var(--muted-text-color) !important; /* Making form hint text more visible */
+}
+
+/* --- Input Group --- */
+.input-group-text {
+    background-color: var(--dark-3);
+    border-color: var(--input-border-color);
+    color: var(--secondary-text-color);
+}
+
+/* --- Diagnosis and Notes --- */
+.text-info {
+    color: #5ac8fa !important; /* Brighter blue for better visibility */
+}

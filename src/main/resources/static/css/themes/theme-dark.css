@@ -1,0 +1,12 @@
+:root {
+    --main-bg-color: #161625;
+    --primary-element-bg: #1e1e2f;
+    --main-text-color: #ffffff;
+    --secondary-text-color: #e0e0e0;
+    --muted-text-color: #b0b0b0;
+    --input-border-color: #404258;
+    --sidebar-bg-color: #1a1a2e;
+    --sidebar-text-color: #c0c5cc;
+    --dark-2: #27293d;
+    --dark-3: #1e1e30;
+}

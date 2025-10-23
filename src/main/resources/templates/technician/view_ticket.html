@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Repair</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/images/logo.png}" type="image/x-icon">
+</head>
+<body>
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img th:src="@{/images/logo.png}" alt="ByteX Logo" class="sidebar-logo">
+            <h4 class="mt-2">ByteX</h4>
+        </div>
+        <ul class="nav flex-column sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" th:href="@{/technician/dashboard}"><i class="fas fa-tools me-2"></i>Assigned Repairs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/technician/part-requests}"><i class="fas fa-cogs me-2"></i>Part Requests</a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <a th:href="@{/profile}" class="nav-link"><i class="fas fa-user-circle me-2"></i>Profile</a>
+            <a th:href="@{/logout}" class="nav-link"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4" data-aos="fade-down">
+                <h2 class="mb-0">Repair for Ticket #<span th:text="${ticket.ticketId}"></span></h2>
+                <a th:href="@{/technician/dashboard}" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Back to Dashboard</a>
+            </div>
+
+            <!-- Alerts -->
+            <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert" data-aos="fade-in">
+                <span th:text="${success}"></span><button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert" data-aos="fade-in">
+                <span th:text="${error}"></span><button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <div class="row">
+                <!-- Left Column: Ticket and Repair Form -->
+                <div class="col-lg-7">
+                    <!-- Original Ticket Info -->
+                    <div class="card bg-dark-2 mb-4" data-aos="fade-up">
+                        <div class="card-header">
+                            <h5 class="mb-0">Customer Issue: <span th:text="${ticket.subject}"></span></h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted"><strong>Customer Name:</strong> <span th:text="${ticket.customer.fullName}"></span></p>
+                            <p th:text="${ticket.description}"></p>
+                        </div>
+                    </div>
+
+                    <!-- Repair Form -->
+                    <div class="card bg-dark-2" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Repair Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/technician/repairs/save}" th:object="${repair}" method="post">
+                                <input type="hidden" th:field="*{repairId}" />
+                                <input type="hidden" name="ticketId" th:value="${ticket.ticketId}" />
+
+                                <div class="mb-3">
+                                    <label for="diagnosis" class="form-label">Diagnosis</label>
+                                    <textarea id="diagnosis" class="form-control" th:field="*{diagnosis}" rows="3" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="repairDetails" class="form-label">Repair Notes / Actions Taken</label>
+                                    <textarea id="repairDetails" class="form-control" th:field="*{repairDetails}" rows="5"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Repair Status</label>
+                                    <select id="status" class="form-select" th:field="*{status}">
+                                         <option th:each="s : ${T(com.bytex.customercaresystem.model.Repair.RepairStatus).values()}"
+                                                 th:value="${s}" th:text="${s}"></option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Repair Details</button>
+                            <form th:if="${repair.status != null and repair.status.name() == 'COMPLETED'}"
+                                  th:action="@{/technician/repairs/{id}/archive(id=${repair.repairId})}" method="post" class="d-inline ms-2">
+                                <button type="submit" class="btn btn-secondary" onclick="return confirm('Are you sure you want to archive this repair?');">Archive Repair</button>
+                            </form>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Part Request -->
+                <div class="col-lg-5">
+                    <div class="card bg-dark-2" data-aos="fade-left">
+                        <div class="card-header">
+                            <h5 class="mb-0">Request a Part</h5>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/technician/part-requests/new}" th:object="${partRequest}" method="post">
+                                 <input type="hidden" name="repairId" th:value="${repair.repairId}" />
+                                 <div th:if="${repair.repairId == null}" class="alert alert-warning">
+                                     Please save a repair record first before requesting parts.
+                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="partId" class="form-label">Part</label>
+                                    <select id="partId" name="partId" class="form-select" th:disabled="${repair.repairId == null}">
+                                        <option value="">Select a part...</option>
+                                        <option th:each="part : ${parts}" th:value="${part.partId}"
+                                                th:text="${part.partName} + ' (' + ${part.partNumber} + ')'"></option>
+                                    </select>
+                                </div>
+                                 <div class="mb-3">
+                                    <label for="quantity" class="form-label">Quantity</label>
+                                    <input type="number" id="quantity" class="form-control" th:field="*{quantity}" min="1" value="1" th:disabled="${repair.repairId == null}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="reason" class="form-label">Reason for Request</label>
+                                    <textarea id="reason" class="form-control" th:field="*{reason}" rows="2" th:disabled="${repair.repairId == null}"></textarea>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-success" th:disabled="${repair.repairId == null}">Submit Part Request</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+      duration: 800,
+      once: true
+  });
+</script>
+<script th:src="@{/js/theme-switcher.js}"></script>
+</body>
+</html>
